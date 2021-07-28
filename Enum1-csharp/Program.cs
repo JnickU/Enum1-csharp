@@ -5,20 +5,41 @@ using Enum1_csharp.Entities.Enums;
 namespace Enum1_csharp {
     class Program {
         static void Main(string[] args) {
-            Order order = new Order {
-                Id = 1080,
-                Moment = DateTime.Now,
-                Status = OrderStatus.PendingPayment
-            };
+            Console.WriteLine("Enter cliente data:");
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+            Console.Write("Birth date (DD/MM/YYYY): ");
+            DateTime birthDate = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("");
 
-            Console.WriteLine(order);
+            Client client = new Client(name, email, birthDate);
 
-            string txt = OrderStatus.PendingPayment.ToString();
+            Console.WriteLine("Enter order data: ");
+            Console.Write("Status: ");
+            OrderStatus status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            Console.Write("How many items to this order? ");
+            int n = int.Parse(Console.ReadLine());
+            Order order = new Order(status, client);
 
-            OrderStatus os = Enum.Parse<OrderStatus>("Delivered");
+            for(int i = 1; i <= n; i++) {
+                Console.WriteLine($"Enter #{i} item data:");
+                Console.Write("Product name: ");
+                string pName = Console.ReadLine();
+                Console.Write("Product price: ");
+                double pPrice = double.Parse(Console.ReadLine());
+                Console.Write("Quantity: ");
+                int pQuantity = int.Parse(Console.ReadLine());
+                Product product = new Product(pName, pPrice);
+                OrderItem orderItem = new OrderItem(pQuantity, pPrice, product);
+                order.AddItem(orderItem);
+                Console.WriteLine("");
+            }
 
-            Console.WriteLine(os);
-            Console.WriteLine(txt);
+            Console.WriteLine("");
+            Console.WriteLine("ORDER SUMMARY:");
+            Console.WriteLine(order);           
 
         }
     }

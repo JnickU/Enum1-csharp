@@ -1,6 +1,4 @@
-﻿
-
-namespace Enum1_csharp.Entities.Enums {
+﻿namespace Enum1_csharp.Entities.Enums {
     enum OrderStatus : int {
         PendingPayment = 0,
         Processing = 1,
